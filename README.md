@@ -31,4 +31,24 @@ not a finished website. There is no separate application mock.
 
 - This app has no real browser or model integration.
 - The sample journey and rationale are simulated; they are not human research.
-- GitHub Pages deployment is intentionally not configured. Creating it is a participant task.
+
+## Deployed site
+
+After the deployment workflow is merged into `main`, the paper prototype is
+published at [Persona Lab on GitHub Pages](https://dragon-warrior-nyc.github.io/persona-lab/).
+Every push to `main` installs locked dependencies, runs the tests, builds `dist/`,
+checks the paper mock and asset paths in Chromium, and deploys to GitHub Pages.
+Pull requests run the same checks without deploying. The workflow can also be
+run manually on `main` from the Actions tab.
+
+Repository **Settings → Pages → Source** must be **GitHub Actions**.
+Production builds use `/persona-lab/` as the base path; local development stays
+at `/`. To reproduce the deployment checks with Node.js 22:
+
+```sh
+npm ci
+npm test
+npm run build
+npx playwright install chromium
+npx playwright test
+```
